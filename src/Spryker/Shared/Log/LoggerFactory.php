@@ -8,6 +8,7 @@
 namespace Spryker\Shared\Log;
 
 use Monolog\Logger as MonologLogger;
+use Psr\Log\LoggerInterface;
 use Spryker\Shared\Log\Config\LoggerConfigInterface;
 use Spryker\Shared\Log\LoggerConfig\LoggerConfigLoader;
 use Spryker\Shared\Log\LoggerConfig\LoggerConfigLoaderDefault;
@@ -30,9 +31,9 @@ class LoggerFactory
     /**
      * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
      *
-     * @return \Psr\Log\LoggerInterface|null
+     * @return \Psr\Log\LoggerInterface
      */
-    public static function getInstance(?LoggerConfigInterface $loggerConfig = null)
+    public static function getInstance(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
     {
         if ($loggerConfig === null) {
             if (!static::$loggerConfig) {
@@ -50,7 +51,7 @@ class LoggerFactory
      *
      * @return \Psr\Log\LoggerInterface
      */
-    protected static function createInstanceIfNotExists(LoggerConfigInterface $loggerConfig)
+    protected static function createInstanceIfNotExists(LoggerConfigInterface $loggerConfig): LoggerInterface
     {
         $channelName = $loggerConfig->getChannelName();
 
