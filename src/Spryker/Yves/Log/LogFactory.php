@@ -226,7 +226,7 @@ class LogFactory extends AbstractFactory
     /**
      * @return \Monolog\Handler\HandlerInterface|\Monolog\Handler\StreamHandler
      */
-    protected function createStreamHandler()
+    public function createStreamHandler()
     {
         $streamHandler = new StreamHandler(
             $this->getConfig()->getLogDestinationPath(),
