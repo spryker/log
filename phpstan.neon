@@ -10,10 +10,19 @@ parameters:
         - '#Parameter \#2 \$level of class .+StreamHandler constructor expects .+, int(.*?) given#'
         - '#Parameter .+ of method .+AbstractHandler::__construct\(\) expects .+, int\|string given.#'
         - '#Parameter \#1 \$record of method .+HandlerInterface::isHandling\(\) expects .+, array given.#'
-        - '#Parameter \#1 \$record of method .+HandlerInterface::handle\(\) expects .+, array given.#'
-        - '#Parameter \#1 \$record of method .+ProcessorInterface::__invoke\(\) expects .+, array given.#'
-        - '#Parameter \#1 \$record of method .+PsrLogMessageProcessor::__invoke\(\) expects .+, array given.#'
+        - '#Parameter \#1 \$record of method .+HandlerInterface::handle\(\) expects .+, array(<mixed>)? given.#'
+        - '#Parameter \#1 \$record of method .+ProcessorInterface::__invoke\(\) expects .+, array(<mixed>)? given.#'
+        - '#Parameter \#1 \$record of method .+PsrLogMessageProcessor::__invoke\(\) expects .+, array(<mixed>)? given.#'
         - '#Parameter \#3 \$level of class .+BufferHandler constructor expects .+, int\|string given.#'
+        - '#PHPDoc tag @SuppressWarnings has invalid value#'
+        - '#PHPDoc tag @var with type .+HandlerInterface is not subtype of native type#'
+        - '#Call to function method_exists\(\) with .+HandlerInterface and ''close'' will always evaluate to true#'
+        - '#Strict comparison using !== between .+SessionInterface and null will always evaluate to true#'
+        - '#PHPDoc tag @return has invalid value .+\*#'
         -
             identifier: missingType.iterableValue
+        -
+            identifier: missingType.return
+        -
+            identifier: trait.unused
     reportUnmatchedIgnoredErrors: false
