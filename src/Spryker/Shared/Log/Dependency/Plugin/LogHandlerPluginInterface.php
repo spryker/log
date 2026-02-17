@@ -13,7 +13,7 @@ use Monolog\Handler\ProcessableHandlerInterface;
 use Monolog\Logger;
 
 // phpcs:disable
-if (Logger::API === 1) {
+if (Logger::API === 1) { // @phpstan-ignore identical.alwaysTrue, identical.alwaysFalse
     interface LogHandlerPluginInterface extends HandlerInterface
     {
     }
