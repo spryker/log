@@ -26,17 +26,11 @@ class LoggerTest extends Unit
 {
     use LoggerTrait;
 
-    /**
-     * @return void
-     */
     public function testGetLoggerWithoutConfigShouldReturnDefaultLoggerInstance(): void
     {
         $this->assertInstanceOf(LoggerInterface::class, $this->getLogger());
     }
 
-    /**
-     * @return void
-     */
     public function testGetLoggerWithSameConfigShouldReturnTheSameLoggerInstance(): void
     {
         $logger1 = $this->getLogger(new TestLoggerConfig());
@@ -45,9 +39,6 @@ class LoggerTest extends Unit
         $this->assertSame($logger1, $logger2);
     }
 
-    /**
-     * @return void
-     */
     public function testGetLoggerWithDifferentConfigShouldReturnDifferentLoggerInstances(): void
     {
         $logger1 = $this->getLogger(new TestLoggerConfig());

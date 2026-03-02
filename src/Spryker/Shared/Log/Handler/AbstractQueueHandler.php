@@ -22,21 +22,11 @@ class AbstractQueueHandler extends AbstractProcessingHandler
      */
     protected $queueName;
 
-    /**
-     * @param array $record
-     *
-     * @return void
-     */
     protected function write(array $record): void
     {
         $this->send($record['formatted']);
     }
 
-    /**
-     * @param array $records
-     *
-     * @return void
-     */
     public function handleBatch(array $records): void
     {
         $level = $this->level;

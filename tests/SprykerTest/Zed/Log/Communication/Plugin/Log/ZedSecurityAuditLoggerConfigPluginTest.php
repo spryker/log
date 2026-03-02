@@ -25,9 +25,6 @@ use Spryker\Zed\Log\Communication\Plugin\Log\ZedSecurityAuditLoggerConfigPlugin;
  */
 class ZedSecurityAuditLoggerConfigPluginTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testIsApplicableReturnsTrueForSecurityChannel(): void
     {
         // Arrange

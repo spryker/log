@@ -17,16 +17,8 @@ abstract class AbstractAuditLoggerConfigPluginProviderStrategy implements AuditL
      */
     protected static array $auditLoggerConfigPlugins = [];
 
-    /**
-     * @return bool
-     */
     abstract public function isApplicable(): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
-     *
-     * @return \Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterface|null
-     */
     abstract public function providePlugin(
         AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
     ): ?AuditLoggerConfigPluginInterface;

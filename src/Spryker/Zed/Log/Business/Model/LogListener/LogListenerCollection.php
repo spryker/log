@@ -14,9 +14,6 @@ class LogListenerCollection implements LogListenerInterface
      */
     protected $logListener;
 
-    /**
-     * @param array $logListener
-     */
     public function __construct(array $logListener)
     {
         $this->logListener = $logListener;

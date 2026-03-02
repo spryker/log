@@ -24,9 +24,6 @@ use Spryker\Yves\Log\Plugin\Log\YvesSecurityAuditLoggerConfigPlugin;
  */
 class YvesSecurityAuditLoggerConfigPluginTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testIsApplicableReturnsTrueForSecurityChannel(): void
     {
         // Arrange

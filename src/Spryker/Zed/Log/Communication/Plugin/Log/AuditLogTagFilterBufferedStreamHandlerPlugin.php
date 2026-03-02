@@ -17,9 +17,6 @@ use Spryker\Zed\Log\Communication\Plugin\Handler\AbstractHandlerPlugin;
  */
 class AuditLogTagFilterBufferedStreamHandlerPlugin extends AbstractHandlerPlugin
 {
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     protected function getHandler(): HandlerInterface
     {
         if (!$this->handler) {

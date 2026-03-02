@@ -53,9 +53,6 @@ class EnvironmentProcessor implements ProcessorInterface
      */
     protected $currentLocale;
 
-    /**
-     * @param string|null $currentLocale
-     */
     public function __construct(?string $currentLocale = null)
     {
         $this->currentLocale = $currentLocale;

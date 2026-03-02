@@ -113,11 +113,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addLocaleFacade(Container $container): Container
     {
         $container->set(static::FACADE_LOCALE, function () use ($container) {
@@ -185,11 +180,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addZedSecurityAuditLogHandlerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ZED_SECURITY_AUDIT_LOG_HANDLER, function () {
@@ -207,11 +197,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addMerchantPortalSecurityAuditLogHandlerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_MERCHANT_PORTAL_SECURITY_AUDIT_LOG_HANDLER, function () {
@@ -251,11 +236,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addZedSecurityAuditLogProcessorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_ZED_SECURITY_AUDIT_LOG_PROCESSOR, function () {
@@ -273,11 +253,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addMerchantPortalSecurityAuditLogProcessorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_MERCHANT_PORTAL_SECURITY_AUDIT_LOG_PROCESSOR, function () {

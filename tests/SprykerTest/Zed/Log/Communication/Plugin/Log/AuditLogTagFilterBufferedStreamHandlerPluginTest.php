@@ -29,9 +29,6 @@ use Spryker\Zed\Log\LogConfig;
  */
 class AuditLogTagFilterBufferedStreamHandlerPluginTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testHandleFiltersOutDisallowedTags(): void
     {
         // Arrange
@@ -47,9 +44,6 @@ class AuditLogTagFilterBufferedStreamHandlerPluginTest extends Unit
         $this->assertFalse($result);
     }
 
-    /**
-     * @return void
-     */
     public function testHandleThrowsAnExceptionWhenContextTagsKeyIsNotAnArray(): void
     {
         // Assert
@@ -62,9 +56,6 @@ class AuditLogTagFilterBufferedStreamHandlerPluginTest extends Unit
         $auditLogTagFilterBufferedStreamHandlerPlugin->handle(['context' => ['tags' => 'test_tag1, test_tag2']]);
     }
 
-    /**
-     * @return void
-     */
     public function testHandleWritesMessageToLogFileWhenContextTagIsNotSet(): void
     {
         // Arrange
@@ -74,9 +65,6 @@ class AuditLogTagFilterBufferedStreamHandlerPluginTest extends Unit
         $auditLogTagFilterBufferedStreamHandlerPlugin->handle(['context' => []]);
     }
 
-    /**
-     * @return void
-     */
     public function testHandleWritesMessageToLogFileWhenContextTagIsSet(): void
     {
         // Arrange
@@ -86,9 +74,6 @@ class AuditLogTagFilterBufferedStreamHandlerPluginTest extends Unit
         $auditLogTagFilterBufferedStreamHandlerPlugin->handle(['context' => ['tags' => ['test_tag']]]);
     }
 
-    /**
-     * @return \Spryker\Zed\Log\Communication\Plugin\Log\AuditLogTagFilterBufferedStreamHandlerPlugin
-     */
     protected function getAuditLogTagFilterBufferedStreamHandlerPlugin(): AuditLogTagFilterBufferedStreamHandlerPlugin
     {
         $bufferHandlerMock = $this->getMockBuilder(BufferHandler::class)->disableOriginalConstructor()->getMock();

@@ -24,11 +24,6 @@ class AuditLoggerFactory
      */
     protected static array $loggers = [];
 
-    /**
-     * @param \Generated\Shared\Transfer\AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
-     *
-     * @return \Psr\Log\LoggerInterface
-     */
     public static function getInstance(
         AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
     ): LoggerInterface {
@@ -43,11 +38,6 @@ class AuditLoggerFactory
         return static::createInstanceIfNotExists($loggerConfig);
     }
 
-    /**
-     * @param \Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterface $auditLoggerConfigPlugin
-     *
-     * @return \Psr\Log\LoggerInterface
-     */
     protected static function createInstanceIfNotExists(AuditLoggerConfigPluginInterface $auditLoggerConfigPlugin): LoggerInterface
     {
         $channelName = $auditLoggerConfigPlugin->getChannelName();

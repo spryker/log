@@ -12,16 +12,8 @@ use Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterfa
 
 interface AuditLoggerConfigPluginProviderStrategyInterface
 {
-    /**
-     * @return bool
-     */
     public function isApplicable(): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
-     *
-     * @return \Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterface|null
-     */
     public function providePlugin(
         AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
     ): ?AuditLoggerConfigPluginInterface;

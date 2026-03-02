@@ -23,9 +23,6 @@ use Spryker\Yves\Log\Plugin\Log\AuditLogRequestProcessorPlugin;
  */
 class AuditLogRequestProcessorPluginTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testInvokeAddsRequestData(): void
     {
         // Arrange

@@ -73,9 +73,6 @@ class LogCommunicationFactory extends AbstractCommunicationFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Log\Dependency\Facade\LogToLocaleFacadeInterface
-     */
     public function getLocaleFacade(): LogToLocaleFacadeInterface
     {
         return $this->getProvidedDependency(LogDependencyProvider::FACADE_LOCALE);
@@ -101,9 +98,6 @@ class LogCommunicationFactory extends AbstractCommunicationFactory
         return new RequestProcessor($this->createSanitizer());
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createAuditLogRequestProcessor(): ProcessorInterface
     {
         return new RequestProcessor($this->createAuditLogSanitizer());
@@ -177,9 +171,6 @@ class LogCommunicationFactory extends AbstractCommunicationFactory
         return new PsrLogMessageProcessor();
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createAuditLogMetaDataProcessor(): ProcessorInterface
     {
         return new AuditLogMetaDataProcessor();
@@ -196,9 +187,6 @@ class LogCommunicationFactory extends AbstractCommunicationFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Sanitizer\SanitizerInterface
-     */
     public function createAuditLogSanitizer(): SanitizerInterface
     {
         return new Sanitizer(

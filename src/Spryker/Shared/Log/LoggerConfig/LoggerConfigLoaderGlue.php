@@ -31,9 +31,6 @@ class LoggerConfigLoaderGlue implements LoggerConfigLoaderInterface
         return new $loggerClassName();
     }
 
-    /**
-     * @return bool
-     */
     protected function isGlueApplication(): bool
     {
         return APPLICATION === 'GLUE';

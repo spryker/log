@@ -16,9 +16,6 @@ use Spryker\Shared\Log\Config\LoggerConfigInterface;
  */
 class GlueLoggerConfigPlugin extends AbstractPlugin implements LoggerConfigInterface
 {
-    /**
-     * @return string
-     */
     public function getChannelName(): string
     {
         return $this->getConfig()->getChannelName();

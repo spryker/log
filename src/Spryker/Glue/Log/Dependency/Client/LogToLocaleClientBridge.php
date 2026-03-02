@@ -22,9 +22,6 @@ class LogToLocaleClientBridge implements LogToLocaleClientInterface
         $this->localeClient = $localeClient;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrentLocale(): string
     {
         return $this->localeClient->getCurrentLocale();

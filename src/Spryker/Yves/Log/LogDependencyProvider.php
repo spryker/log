@@ -99,11 +99,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addYvesSecurityAuditLogHandlerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_YVES_SECURITY_AUDIT_LOG_HANDLER, function () {
@@ -143,11 +138,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addYvesSecurityAuditLogProcessorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_YVES_SECURITY_AUDIT_LOG_PROCESSOR, function () {
@@ -165,11 +155,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addLocaleClient(Container $container): Container
     {
         $container->set(static::CLIENT_LOCALE, function (Container $container) {

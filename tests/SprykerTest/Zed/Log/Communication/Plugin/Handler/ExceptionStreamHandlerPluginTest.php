@@ -37,9 +37,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return \Spryker\Zed\Log\Communication\Plugin\Handler\ExceptionStreamHandlerPlugin
-     */
     protected function getExceptionStreamHandlerPlugin(): ExceptionStreamHandlerPlugin
     {
         $this->tester->mockConfigMethod('getExceptionLogDestinationPath', function () {
@@ -52,9 +49,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         return $handler;
     }
 
-    /**
-     * @return void
-     */
     public function testIsHandlingReturnsTrueIfLogLevelIsError(): void
     {
         $record = ['level' => Logger::ERROR];
@@ -62,9 +56,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         $this->assertTrue($this->getExceptionStreamHandlerPlugin()->isHandling($record));
     }
 
-    /**
-     * @return void
-     */
     public function testIsHandlingReturnsFalseIfLogLevelIsLowerThanError(): void
     {
         $record = ['level' => Logger::DEBUG];
@@ -72,9 +63,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         $this->assertFalse($this->getExceptionStreamHandlerPlugin()->isHandling($record));
     }
 
-    /**
-     * @return void
-     */
     public function testHandleWritesMessageToLogFile(): void
     {
         $record = ['level' => Logger::ERROR, 'extra' => [], 'context' => [], 'message' => 'Test exception logs'];
@@ -83,9 +71,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         $this->tester->assertLogFileContains(static::FILENAME, 'Test exception logs');
     }
 
-    /**
-     * @return void
-     */
     public function testHandleBatchWritesMessagesToLogFile(): void
     {
         $records = [
@@ -99,9 +84,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         $this->tester->assertLogFileContains(static::FILENAME, 'Test exception logs 2');
     }
 
-    /**
-     * @return void
-     */
     public function testPushProcessorReturnsProcessableHandlerInterface(): void
     {
         $processableInterface = $this->getExceptionStreamHandlerPlugin()->pushProcessor(function () {
@@ -110,9 +92,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         $this->assertInstanceOf(HandlerInterface::class, $processableInterface);
     }
 
-    /**
-     * @return void
-     */
     public function testPopProcessorReturnsAddedProcessor(): void
     {
         $processor = function () {
@@ -123,9 +102,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         $this->assertSame($processor, $handler->popProcessor());
     }
 
-    /**
-     * @return void
-     */
     public function testSetFormatterReturnsFormattableHandlerInterface(): void
     {
         $formatterMock = $this->getFormatterMock();
@@ -142,9 +118,6 @@ class ExceptionStreamHandlerPluginTest extends Unit
         return $this->getMockBuilder(FormatterInterface::class)->getMock();
     }
 
-    /**
-     * @return void
-     */
     public function testGetFormatterReturnsAddedFormatter(): void
     {
         $formatterMock = $this->getFormatterMock();

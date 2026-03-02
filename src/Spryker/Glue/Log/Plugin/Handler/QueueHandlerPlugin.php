@@ -15,9 +15,6 @@ use Monolog\Handler\HandlerInterface;
  */
 class QueueHandlerPlugin extends AbstractHandlerPlugin
 {
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     protected function getHandler(): HandlerInterface
     {
         if (!$this->handler) {

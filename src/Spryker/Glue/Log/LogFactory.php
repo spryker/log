@@ -61,17 +61,11 @@ class LogFactory extends AbstractFactory
         return new TagFilterBufferedStreamHandler($this->createBufferedStreamHandler(), $auditLogTagDisallowList);
     }
 
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     public function createBufferedQueueHandler(): HandlerInterface
     {
         return new BufferHandler($this->createQueueHandler());
     }
 
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     public function createQueueHandler(): HandlerInterface
     {
         return new QueueHandler(
@@ -80,17 +74,11 @@ class LogFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     public function createBufferedStreamHandler(): HandlerInterface
     {
         return new BufferHandler($this->createStreamHandler());
     }
 
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     public function createStreamHandler(): HandlerInterface
     {
         $streamHandler = new StreamHandler(
@@ -103,17 +91,11 @@ class LogFactory extends AbstractFactory
         return $streamHandler;
     }
 
-    /**
-     * @return \Monolog\Formatter\FormatterInterface
-     */
     public function createLogstashFormatter(): FormatterInterface
     {
         return new LogstashFormatter(APPLICATION);
     }
 
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     public function createExceptionStreamHandler(): HandlerInterface
     {
         $streamHandler = new StreamHandler(
@@ -125,9 +107,6 @@ class LogFactory extends AbstractFactory
         return $streamHandler;
     }
 
-    /**
-     * @return \Monolog\Formatter\FormatterInterface
-     */
     public function createExceptionFormatter(): FormatterInterface
     {
         $lineFormatter = new LineFormatter();
@@ -136,9 +115,6 @@ class LogFactory extends AbstractFactory
         return $lineFormatter;
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createEnvironmentProcessor(): ProcessorInterface
     {
         return new EnvironmentProcessor(
@@ -146,73 +122,46 @@ class LogFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Glue\Log\Dependency\Client\LogToLocaleClientInterface
-     */
     public function getLocaleClient(): LogToLocaleClientInterface
     {
         return $this->getProvidedDependency(LogDependencyProvider::CLIENT_LOCALE);
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createGuzzleBodyProcessor(): ProcessorInterface
     {
         return new GuzzleBodyProcessor($this->createSanitizer());
     }
 
-    /**
-     * @return \Monolog\Processor\ProcessorInterface
-     */
     public function createPsrMessageProcessor(): MonologProcessorInterface
     {
         return new PsrLogMessageProcessor();
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createRequestProcessor(): ProcessorInterface
     {
         return new RequestProcessor($this->createSanitizer());
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createAuditLogRequestProcessor(): ProcessorInterface
     {
         return new RequestProcessor($this->createAuditLogSanitizer());
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createResponseProcessor(): ProcessorInterface
     {
         return new ResponseProcessor();
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createServerProcessor(): ProcessorInterface
     {
         return new ServerProcessor();
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Processor\ProcessorInterface
-     */
     public function createAuditLogMetaDataProcessor(): ProcessorInterface
     {
         return new AuditLogMetaDataProcessor();
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Sanitizer\SanitizerInterface
-     */
     public function createSanitizer(): SanitizerInterface
     {
         return new Sanitizer(
@@ -221,9 +170,6 @@ class LogFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Sanitizer\SanitizerInterface
-     */
     public function createAuditLogSanitizer(): SanitizerInterface
     {
         return new Sanitizer(

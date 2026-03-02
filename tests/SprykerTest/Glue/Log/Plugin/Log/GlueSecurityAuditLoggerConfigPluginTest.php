@@ -24,9 +24,6 @@ use Spryker\Glue\Log\Plugin\Log\GlueSecurityAuditLoggerConfigPlugin;
  */
 class GlueSecurityAuditLoggerConfigPluginTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testIsApplicableReturnsTrueForSecurityChannel(): void
     {
         // Arrange

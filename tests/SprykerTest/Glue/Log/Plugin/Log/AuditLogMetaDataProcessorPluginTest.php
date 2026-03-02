@@ -23,9 +23,6 @@ use Spryker\Glue\Log\Plugin\Log\AuditLogMetaDataProcessorPlugin;
  */
 class AuditLogMetaDataProcessorPluginTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testInvokeAddsLogType(): void
     {
         // Arrange

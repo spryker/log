@@ -14,19 +14,11 @@ use Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterfa
 
 class GlueAuditLoggerConfigPluginProviderStrategy extends AbstractAuditLoggerConfigPluginProviderStrategy
 {
-    /**
-     * @return bool
-     */
     public function isApplicable(): bool
     {
         return $this->isGlueApplication() && Config::hasKey(LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_GLUE);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
-     *
-     * @return \Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterface|null
-     */
     public function providePlugin(
         AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
     ): ?AuditLoggerConfigPluginInterface {
@@ -35,9 +27,6 @@ class GlueAuditLoggerConfigPluginProviderStrategy extends AbstractAuditLoggerCon
         return $this->resolvePlugin($auditLoggerConfigPluginClassNames, $auditLoggerConfigCriteriaTransfer);
     }
 
-    /**
-     * @return bool
-     */
     protected function isGlueApplication(): bool
     {
         return APPLICATION === 'GLUE';

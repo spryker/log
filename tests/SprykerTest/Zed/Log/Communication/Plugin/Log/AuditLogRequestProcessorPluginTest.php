@@ -24,9 +24,6 @@ use Spryker\Zed\Log\Communication\Plugin\Log\AuditLogRequestProcessorPlugin;
  */
 class AuditLogRequestProcessorPluginTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testInvokeAddsRequestData(): void
     {
         // Arrange

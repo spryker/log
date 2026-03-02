@@ -11,9 +11,6 @@ use Spryker\Shared\Log\Config\LoggerConfigInterface;
 
 class TestLoggerConfig2 implements LoggerConfigInterface
 {
-    /**
-     * @return string
-     */
     public function getChannelName(): string
     {
         return 'test2';

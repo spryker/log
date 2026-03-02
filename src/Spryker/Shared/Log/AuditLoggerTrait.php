@@ -12,11 +12,6 @@ use Psr\Log\LoggerInterface;
 
 trait AuditLoggerTrait
 {
-    /**
-     * @param \Generated\Shared\Transfer\AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
-     *
-     * @return \Psr\Log\LoggerInterface
-     */
     protected function getAuditLogger(AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer): LoggerInterface
     {
         return AuditLoggerFactory::getInstance($auditLoggerConfigCriteriaTransfer);

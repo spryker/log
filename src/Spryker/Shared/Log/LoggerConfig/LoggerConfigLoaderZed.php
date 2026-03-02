@@ -31,9 +31,6 @@ class LoggerConfigLoaderZed implements LoggerConfigLoaderInterface
         return new $loggerClassName();
     }
 
-    /**
-     * @return bool
-     */
     protected function isZedApplication(): bool
     {
         return APPLICATION === 'ZED';

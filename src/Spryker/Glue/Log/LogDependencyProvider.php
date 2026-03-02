@@ -56,11 +56,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const CLIENT_LOCALE = 'CLIENT_LOCALE';
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     public function provideDependencies(Container $container): Container
     {
         $container = $this->addQueueClient($container);
@@ -75,11 +70,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addQueueClient(Container $container): Container
     {
         $container->set(static::CLIENT_QUEUE, function () use ($container) {
@@ -89,11 +79,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addLocaleClient(Container $container): Container
     {
         $container->set(static::CLIENT_LOCALE, function (Container $container) {
@@ -103,11 +88,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addLogHandlers(Container $container): Container
     {
         $container->set(static::LOG_HANDLERS, function () {
@@ -125,11 +105,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addGlueSecurityAuditLogHandlerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_GLUE_SECURITY_AUDIT_LOG_HANDLER, function () {
@@ -147,11 +122,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addGlueBackendSecurityAuditLogHandlerPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_GLUE_BACKEND_SECURITY_AUDIT_LOG_HANDLER, function () {
@@ -169,11 +139,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addProcessors(Container $container): Container
     {
         $container->set(static::LOG_PROCESSORS, function () {
@@ -191,11 +156,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addGlueSecurityAuditLogProcessorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_GLUE_SECURITY_AUDIT_LOG_PROCESSOR, function () {
@@ -213,11 +173,6 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addGlueBackendSecurityAuditLogProcessorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_GLUE_BACKEND_SECURITY_AUDIT_LOG_PROCESSOR, function () {

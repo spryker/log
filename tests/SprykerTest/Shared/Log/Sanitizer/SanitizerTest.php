@@ -28,9 +28,6 @@ class SanitizerTest extends Unit
      */
     public const SANITIZED_VALUE = '***';
 
-    /**
-     * @return void
-     */
     public function testInstantiateWithArguments(): void
     {
         $sanitizer = new Sanitizer([], static::SANITIZED_VALUE);
@@ -38,9 +35,6 @@ class SanitizerTest extends Unit
         $this->assertInstanceOf(SanitizerInterface::class, $sanitizer);
     }
 
-    /**
-     * @return void
-     */
     public function testSanitizeValueValueShouldNotSanitizeWhenKeysNotMatching(): void
     {
         $sanitizer = new Sanitizer(['foo'], static::SANITIZED_VALUE);
@@ -48,9 +42,6 @@ class SanitizerTest extends Unit
         $this->assertSame('bar', $sanitizer->sanitizeValue('bar', 'baz'));
     }
 
-    /**
-     * @return void
-     */
     public function testSanitizeValueShouldReturnSanitizedWhenKeyMatches(): void
     {
         $sanitizer = new Sanitizer(['sanitize'], static::SANITIZED_VALUE);
@@ -58,9 +49,6 @@ class SanitizerTest extends Unit
         $this->assertSame(static::SANITIZED_VALUE, $sanitizer->sanitizeValue('bar', 'sanitize'));
     }
 
-    /**
-     * @return void
-     */
     public function testSanitizeShouldReturnNotSanitizedWhenKeysNotMatching(): void
     {
         $sanitizer = new Sanitizer(['sanitize'], static::SANITIZED_VALUE);
@@ -71,9 +59,6 @@ class SanitizerTest extends Unit
         $this->assertSame($expected, $sanitizer->sanitize($input));
     }
 
-    /**
-     * @return void
-     */
     public function testSanitizeShouldReturnSanitizedWhenKeyMatches(): void
     {
         $sanitizer = new Sanitizer(['sanitize'], static::SANITIZED_VALUE);
@@ -84,9 +69,6 @@ class SanitizerTest extends Unit
         $this->assertSame($expected, $sanitizer->sanitize($input));
     }
 
-    /**
-     * @return void
-     */
     public function testSanitizeWithInnerArrayShouldReturnSanitizedWhenKeyMatches(): void
     {
         $sanitizer = new Sanitizer(['sanitize', 'password'], static::SANITIZED_VALUE);
@@ -108,9 +90,6 @@ class SanitizerTest extends Unit
         $this->assertSame($expected, $sanitizer->sanitize($input));
     }
 
-    /**
-     * @return void
-     */
     public function testSanitizeWithIndexedArrayShouldReturnSanitizedWhenKeyMatches(): void
     {
         $sanitizer = new Sanitizer(['sanitize'], static::SANITIZED_VALUE);

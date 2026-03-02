@@ -41,11 +41,6 @@ class LogClear implements LogClearInterface
         }
     }
 
-    /**
-     * @param string $logFileDirectory
-     *
-     * @return void
-     */
     protected function removeLogFiles(string $logFileDirectory): void
     {
         if (!$this->filesystem->exists($logFileDirectory)) {

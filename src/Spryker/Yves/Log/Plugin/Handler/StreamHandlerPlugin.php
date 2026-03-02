@@ -14,9 +14,6 @@ use Monolog\Handler\HandlerInterface;
  */
 class StreamHandlerPlugin extends AbstractHandlerPlugin
 {
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     protected function getHandler(): HandlerInterface
     {
         if (!$this->handler) {

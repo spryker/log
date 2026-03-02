@@ -9,8 +9,5 @@ namespace Spryker\Glue\Log\Dependency\Client;
 
 interface LogToLocaleClientInterface
 {
-    /**
-     * @return string
-     */
     public function getCurrentLocale(): string;
 }

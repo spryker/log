@@ -31,9 +31,6 @@ class LoggerConfigLoaderYves implements LoggerConfigLoaderInterface
         return new $loggerClassName();
     }
 
-    /**
-     * @return bool
-     */
     protected function isYvesApplication(): bool
     {
         return APPLICATION === 'YVES';

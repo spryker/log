@@ -29,11 +29,6 @@ class LoggerFactory
      */
     protected static $loggerConfig;
 
-    /**
-     * @param \Spryker\Shared\Log\Config\LoggerConfigInterface|null $loggerConfig
-     *
-     * @return \Psr\Log\LoggerInterface
-     */
     public static function getInstance(?LoggerConfigInterface $loggerConfig = null): LoggerInterface
     {
         if ($loggerConfig === null) {
@@ -47,11 +42,6 @@ class LoggerFactory
         return static::createInstanceIfNotExists($loggerConfig);
     }
 
-    /**
-     * @param \Spryker\Shared\Log\Config\LoggerConfigInterface $loggerConfig
-     *
-     * @return \Psr\Log\LoggerInterface
-     */
     protected static function createInstanceIfNotExists(LoggerConfigInterface $loggerConfig): LoggerInterface
     {
         $channelName = $loggerConfig->getChannelName();
@@ -65,9 +55,6 @@ class LoggerFactory
         return static::$loggers[$channelName];
     }
 
-    /**
-     * @return \Spryker\Shared\Log\Config\LoggerConfigInterface
-     */
     protected static function createLoggerConfig(): LoggerConfigInterface
     {
         $loggerConfigLoader = new LoggerConfigLoader([

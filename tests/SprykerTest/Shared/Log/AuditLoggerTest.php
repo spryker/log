@@ -25,9 +25,6 @@ class AuditLoggerTest extends Unit
 {
     use AuditLoggerTrait;
 
-    /**
-     * @return void
-     */
     public function testGetAuditLoggerReturnsDefaultLoggerWhenLoggerIsNotFoundForChannel(): void
     {
         $this->assertInstanceOf(

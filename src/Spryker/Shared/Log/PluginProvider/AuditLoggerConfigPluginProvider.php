@@ -34,11 +34,6 @@ class AuditLoggerConfigPluginProvider implements AuditLoggerConfigPluginProvider
         $this->defaultAuditLoggerConfigPlugin = $defaultAuditLoggerConfigPlugin;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
-     *
-     * @return \Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterface
-     */
     public function getAuditLoggerConfigPlugin(
         AuditLoggerConfigCriteriaTransfer $auditLoggerConfigCriteriaTransfer
     ): AuditLoggerConfigPluginInterface {

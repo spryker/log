@@ -24,9 +24,6 @@ abstract class AbstractHandlerPlugin extends AbstractPlugin implements LogHandle
      */
     protected $handler;
 
-    /**
-     * @return \Monolog\Handler\HandlerInterface
-     */
     abstract protected function getHandler(): HandlerInterface;
 
     /**
