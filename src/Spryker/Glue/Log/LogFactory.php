@@ -20,6 +20,7 @@ use Spryker\Glue\Kernel\AbstractFactory;
 use Spryker\Glue\Log\Dependency\Client\LogToLocaleClientInterface;
 use Spryker\Glue\Log\Handler\QueueHandler;
 use Spryker\Shared\Log\Handler\TagFilterBufferedStreamHandler;
+use Spryker\Shared\Log\LogConstants;
 use Spryker\Shared\Log\Processor\AuditLogMetaDataProcessor;
 use Spryker\Shared\Log\Processor\EnvironmentProcessor;
 use Spryker\Shared\Log\Processor\GuzzleBodyProcessor;
@@ -29,12 +30,32 @@ use Spryker\Shared\Log\Processor\ResponseProcessor;
 use Spryker\Shared\Log\Processor\ServerProcessor;
 use Spryker\Shared\Log\Sanitizer\Sanitizer;
 use Spryker\Shared\Log\Sanitizer\SanitizerInterface;
+use Spryker\Shared\Log\WebProfiler\AuditLogDataCollectorCreator;
+use Spryker\Shared\Log\WebProfiler\AuditLogDataCollectorCreatorInterface;
 
 /**
  * @method \Spryker\Glue\Log\LogConfig getConfig()
  */
 class LogFactory extends AbstractFactory
 {
+    /**
+     * @see \public/Glue/index.php
+     */
+    protected const string APPLICATION_GLUE = 'GLUE';
+
+    /**
+     * @see \public/GlueBackend/index.php
+     */
+    protected const string APPLICATION_GLUE_BACKEND = 'GLUE_BACKEND';
+
+    public function createAuditLogDataCollectorCreator(): AuditLogDataCollectorCreatorInterface
+    {
+        return new AuditLogDataCollectorCreator([
+            static::APPLICATION_GLUE => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_GLUE,
+            static::APPLICATION_GLUE_BACKEND => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_GLUE_BACKEND,
+        ]);
+    }
+
     /**
      * @return array<\Monolog\Handler\HandlerInterface>
      */

@@ -14,15 +14,18 @@
         "spryker/queue": "^0.3.0 || ^1.0.0",
         "spryker/symfony": "^3.0.0",
         "spryker/transfer": "^3.27.0",
-        "spryker/util-network": "^1.0.0"
+        "spryker/util-network": "^1.0.0",
+        "spryker/web-profiler-extension": "^1.0.0"
     },
     "require-dev": {
         "spryker/code-sniffer": "*",
+        "spryker/container": "*",
         "spryker/propel": "*",
         "spryker/silex": "*",
         "spryker/testify": "*"
     },
     "suggest": {
+        "spryker/container": "If WebProfilerAuditLogDataCollectorPlugin is used",
         "spryker/silex": "If you want to use ServiceProvider."
     },
     "autoload": {

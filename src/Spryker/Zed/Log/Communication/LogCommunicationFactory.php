@@ -15,6 +15,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Spryker\Shared\Log\Handler\TagFilterBufferedStreamHandler;
+use Spryker\Shared\Log\LogConstants;
 use Spryker\Shared\Log\Processor\AuditLogMetaDataProcessor;
 use Spryker\Shared\Log\Processor\EnvironmentProcessor;
 use Spryker\Shared\Log\Processor\GuzzleBodyProcessor;
@@ -24,6 +25,8 @@ use Spryker\Shared\Log\Processor\ResponseProcessor;
 use Spryker\Shared\Log\Processor\ServerProcessor;
 use Spryker\Shared\Log\Sanitizer\Sanitizer;
 use Spryker\Shared\Log\Sanitizer\SanitizerInterface;
+use Spryker\Shared\Log\WebProfiler\AuditLogDataCollectorCreator;
+use Spryker\Shared\Log\WebProfiler\AuditLogDataCollectorCreatorInterface;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use Spryker\Zed\Log\Communication\Handler\QueueHandler;
 use Spryker\Zed\Log\Dependency\Facade\LogToLocaleFacadeInterface;
@@ -35,6 +38,24 @@ use Spryker\Zed\Log\LogDependencyProvider;
  */
 class LogCommunicationFactory extends AbstractCommunicationFactory
 {
+    /**
+     * @see \public/Zed/index.php, \public/Backoffice/index.php, \public/BackendApi/index.php, \public/BackendGateway/index.php
+     */
+    protected const string APPLICATION_ZED = 'ZED';
+
+    /**
+     * @see \public/MerchantPortal/index.php
+     */
+    protected const string APPLICATION_MERCHANT_PORTAL = 'MERCHANT_PORTAL';
+
+    public function createAuditLogDataCollectorCreator(): AuditLogDataCollectorCreatorInterface
+    {
+        return new AuditLogDataCollectorCreator([
+            static::APPLICATION_ZED => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_ZED,
+            static::APPLICATION_MERCHANT_PORTAL => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_MERCHANT_PORTAL,
+        ]);
+    }
+
     /**
      * @return array<\Monolog\Handler\HandlerInterface>
      */

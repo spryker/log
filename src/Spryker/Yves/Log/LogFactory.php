@@ -15,6 +15,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Spryker\Shared\Log\Handler\TagFilterBufferedStreamHandler;
+use Spryker\Shared\Log\LogConstants;
 use Spryker\Shared\Log\Processor\AuditLogMetaDataProcessor;
 use Spryker\Shared\Log\Processor\EnvironmentProcessor;
 use Spryker\Shared\Log\Processor\GuzzleBodyProcessor;
@@ -24,6 +25,8 @@ use Spryker\Shared\Log\Processor\ResponseProcessor;
 use Spryker\Shared\Log\Processor\ServerProcessor;
 use Spryker\Shared\Log\Sanitizer\Sanitizer;
 use Spryker\Shared\Log\Sanitizer\SanitizerInterface;
+use Spryker\Shared\Log\WebProfiler\AuditLogDataCollectorCreator;
+use Spryker\Shared\Log\WebProfiler\AuditLogDataCollectorCreatorInterface;
 use Spryker\Yves\Kernel\AbstractFactory;
 use Spryker\Yves\Log\Dependency\Client\LogToLocaleClientInterface;
 use Spryker\Yves\Log\Handler\QueueHandler;
@@ -33,6 +36,18 @@ use Spryker\Yves\Log\Handler\QueueHandler;
  */
 class LogFactory extends AbstractFactory
 {
+    /**
+     * @see \public/Yves/index.php
+     */
+    protected const string APPLICATION_YVES = 'YVES';
+
+    public function createAuditLogDataCollectorCreator(): AuditLogDataCollectorCreatorInterface
+    {
+        return new AuditLogDataCollectorCreator([
+            static::APPLICATION_YVES => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_YVES,
+        ]);
+    }
+
     /**
      * @return array<\Monolog\Handler\HandlerInterface>
      */
