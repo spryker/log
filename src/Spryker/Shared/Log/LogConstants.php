@@ -44,6 +44,17 @@ interface LogConstants
 
     /**
      * Specification:
+     * - Class name of the class which implements LoggerConfigInterface for CLI context.
+     * - When set, this configuration is used instead of LOGGER_CONFIG_ZED for console command execution.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const LOGGER_CONFIG_ZED_CLI = 'LOG:LOGGER_CONFIG_ZED_CLI';
+
+    /**
+     * Specification:
      * - Channel name of Zed logger.
      *
      * @api

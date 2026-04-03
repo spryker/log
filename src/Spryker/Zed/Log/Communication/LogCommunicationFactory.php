@@ -65,6 +65,14 @@ class LogCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
+     * @return array<\Monolog\Handler\HandlerInterface>
+     */
+    public function getCliHandlers(): array
+    {
+        return $this->getProvidedDependency(LogDependencyProvider::LOG_CLI_HANDLERS);
+    }
+
+    /**
      * @return array<callable>
      */
     public function getProcessors()
@@ -243,7 +251,7 @@ class LogCommunicationFactory extends AbstractCommunicationFactory
     /**
      * @return \Monolog\Handler\HandlerInterface|\Monolog\Handler\StreamHandler
      */
-    protected function createStreamHandler()
+    public function createStreamHandler()
     {
         $streamHandler = new StreamHandler(
             $this->getConfig()->getLogDestinationPath(),

@@ -55,6 +55,11 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @var string
      */
+    public const LOG_CLI_HANDLERS = 'LOG_CLI_HANDLERS';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_ZED_SECURITY_AUDIT_LOG_HANDLER = 'PLUGINS_ZED_SECURITY_AUDIT_LOG_HANDLER';
 
     /**
@@ -76,6 +81,7 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = $this->addQueueClient($container);
         $container = $this->addLogHandlers($container);
+        $container = $this->addCliLogHandlers($container);
         $container = $this->addZedSecurityAuditLogHandlerPlugins($container);
         $container = $this->addMerchantPortalSecurityAuditLogHandlerPlugins($container);
         $container = $this->addProcessors($container);
@@ -176,6 +182,23 @@ class LogDependencyProvider extends AbstractBundleDependencyProvider
      * @return array<\Spryker\Shared\Log\Dependency\Plugin\LogHandlerPluginInterface>
      */
     protected function getLogHandlers()
+    {
+        return [];
+    }
+
+    protected function addCliLogHandlers(Container $container): Container
+    {
+        $container->set(static::LOG_CLI_HANDLERS, function () {
+            return $this->getCliLogHandlers();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\Spryker\Shared\Log\Dependency\Plugin\LogHandlerPluginInterface>
+     */
+    protected function getCliLogHandlers(): array
     {
         return [];
     }

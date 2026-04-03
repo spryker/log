@@ -16,6 +16,7 @@ use Spryker\Shared\Log\LoggerConfig\LoggerConfigLoaderGlue;
 use Spryker\Shared\Log\LoggerConfig\LoggerConfigLoaderInterface;
 use Spryker\Shared\Log\LoggerConfig\LoggerConfigLoaderYves;
 use Spryker\Shared\Log\LoggerConfig\LoggerConfigLoaderZed;
+use Spryker\Shared\Log\LoggerConfig\LoggerConfigLoaderZedCli;
 
 class LoggerFactory
 {
@@ -59,6 +60,7 @@ class LoggerFactory
     {
         $loggerConfigLoader = new LoggerConfigLoader([
             static::createLoggerConfigLoaderYves(),
+            static::createLoggerConfigLoaderZedCli(),
             static::createLoggerConfigLoaderZed(),
             static::createLoggerConfigLoaderGlue(),
             static::createLoggerConfigLoaderDefault(),
@@ -73,6 +75,11 @@ class LoggerFactory
     protected static function createLoggerConfigLoaderYves(): LoggerConfigLoaderInterface
     {
         return new LoggerConfigLoaderYves();
+    }
+
+    protected static function createLoggerConfigLoaderZedCli(): LoggerConfigLoaderInterface
+    {
+        return new LoggerConfigLoaderZedCli();
     }
 
     /**
