@@ -19,6 +19,7 @@ use Monolog\Processor\PsrLogMessageProcessor;
 use Spryker\Glue\Kernel\AbstractFactory;
 use Spryker\Glue\Log\Dependency\Client\LogToLocaleClientInterface;
 use Spryker\Glue\Log\Handler\QueueHandler;
+use Spryker\Shared\Log\Handler\LevelFlushBufferHandler;
 use Spryker\Shared\Log\Handler\TagFilterBufferedStreamHandler;
 use Spryker\Shared\Log\LogConstants;
 use Spryker\Shared\Log\Processor\AuditLogMetaDataProcessor;
@@ -97,7 +98,7 @@ class LogFactory extends AbstractFactory
 
     public function createBufferedStreamHandler(): HandlerInterface
     {
-        return new BufferHandler($this->createStreamHandler());
+        return new LevelFlushBufferHandler($this->createStreamHandler());
     }
 
     public function createStreamHandler(): HandlerInterface

@@ -7,9 +7,13 @@
 
 namespace Spryker\Zed\Log;
 
+use Monolog\Logger;
 use Spryker\Shared\Log\LogConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
+/**
+ * @phpstan-import-type Level from \Monolog\Logger
+ */
 class LogConfig extends AbstractBundleConfig
 {
     /**
@@ -32,6 +36,15 @@ class LogConfig extends AbstractBundleConfig
      * @var bool
      */
     protected const FLUSH_ON_OVERFLOW = true;
+
+    /**
+     * Records at or above this level flush the buffer immediately instead of waiting for shutdown, so a
+     * process that never reaches shutdown does not take them with it. Set to `null` to disable the early
+     * flush and keep the stock buffered behaviour.
+     *
+     * @phpstan-var Level|null
+     */
+    protected const ?int FLUSH_LEVEL = Logger::CRITICAL;
 
     /**
      * @var array<string>
@@ -240,5 +253,21 @@ class LogConfig extends AbstractBundleConfig
     public function getIsFlushOnOverflow(): bool
     {
         return static::FLUSH_ON_OVERFLOW;
+    }
+
+    /**
+     * Specification:
+     * - Returns the log level at or above which the buffered stream handler flushes immediately.
+     * - Returns `null` to disable the early flush and keep the stock buffered behaviour.
+     *
+     * @api
+     *
+     * @phpstan-return Level|null
+     *
+     * @return int|null
+     */
+    public function getFlushLevel(): ?int
+    {
+        return static::FLUSH_LEVEL;
     }
 }

@@ -14,6 +14,7 @@ use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Spryker\Shared\Log\Handler\LevelFlushBufferHandler;
 use Spryker\Shared\Log\Handler\TagFilterBufferedStreamHandler;
 use Spryker\Shared\Log\LogConstants;
 use Spryker\Shared\Log\Processor\AuditLogMetaDataProcessor;
@@ -223,7 +224,7 @@ class LogFactory extends AbstractFactory
      */
     public function createBufferedStreamHandler()
     {
-        return new BufferHandler($this->createStreamHandler());
+        return new LevelFlushBufferHandler($this->createStreamHandler());
     }
 
     /**
