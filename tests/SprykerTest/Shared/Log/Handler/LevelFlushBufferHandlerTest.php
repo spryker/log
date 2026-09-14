@@ -11,7 +11,9 @@ use Codeception\Test\Unit;
 use DateTimeImmutable;
 use Monolog\Handler\BufferHandler;
 use Monolog\Handler\TestHandler;
+use Monolog\Level;
 use Monolog\Logger;
+use Monolog\LogRecord;
 use Spryker\Shared\Log\Handler\LevelFlushBufferHandler;
 
 /**
@@ -137,13 +139,19 @@ class LevelFlushBufferHandlerTest extends Unit
     }
 
     /**
-     * @param int $level
-     * @param string $message
-     *
-     * @return array<string, mixed>
+     * @return \Monolog\LogRecord|array<string, mixed>
      */
-    protected function createRecord(int $level, string $message): array
+    protected function createRecord(int $level, string $message)
     {
+        if (class_exists(LogRecord::class)) {
+            return new LogRecord(
+                new DateTimeImmutable(),
+                'test',
+                Level::fromValue($level),
+                $message,
+            );
+        }
+
         return [
             'message' => $message,
             'context' => [],

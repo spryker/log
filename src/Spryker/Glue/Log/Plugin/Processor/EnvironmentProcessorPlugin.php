@@ -17,11 +17,11 @@ use Throwable;
 class EnvironmentProcessorPlugin extends AbstractPlugin implements LogProcessorPluginInterface
 {
     /**
-     * @param array<string, mixed> $data
+     * @param \Monolog\LogRecord|array<string, mixed> $data
      *
-     * @return array
+     * @return \Monolog\LogRecord|array
      */
-    public function __invoke(array $data): array
+    public function __invoke($data)
     {
         try {
             return $this->getFactory()->createEnvironmentProcessor()->__invoke($data);

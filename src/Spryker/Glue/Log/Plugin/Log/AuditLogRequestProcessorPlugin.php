@@ -24,11 +24,11 @@ class AuditLogRequestProcessorPlugin extends AbstractPlugin implements LogProces
      *
      * @api
      *
-     * @param array<string, mixed> $data
+     * @param \Monolog\LogRecord|array<string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return \Monolog\LogRecord|array<string, mixed>
      */
-    public function __invoke(array $data): array
+    public function __invoke($data)
     {
         return $this->getFactory()->createAuditLogRequestProcessor()->__invoke($data);
     }

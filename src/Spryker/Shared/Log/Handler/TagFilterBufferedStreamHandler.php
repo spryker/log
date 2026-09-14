@@ -40,33 +40,32 @@ class TagFilterBufferedStreamHandler extends HandlerWrapper
     }
 
     /**
-     * @param array<mixed> $record
-     *
-     * @return bool
+     * @param \Monolog\LogRecord|array $record
      */
-    public function handle(array $record): bool
+    public function handle($record): bool
     {
         if ($this->isRecordDisallowedByTags($record)) {
             return false;
         }
 
+        // @phpstan-ignore argument.type
         return $this->handler->handle($record);
     }
 
     /**
-     * @param array<mixed> $record
-     *
-     * @return bool
+     * @param \Monolog\LogRecord|array $record
      */
-    protected function isRecordDisallowedByTags(array $record): bool
+    protected function isRecordDisallowedByTags($record): bool
     {
-        if (!isset($record[static::RECORD_KEY_CONTEXT][static::RECORD_KEY_CONTEXT_TAGS])) {
+        $context = is_array($record) ? ($record[static::RECORD_KEY_CONTEXT] ?? []) : $record->context;
+
+        if (!isset($context[static::RECORD_KEY_CONTEXT_TAGS])) {
             return false;
         }
 
-        $this->assertRecordTagsType($record);
+        $this->assertRecordTagsType($context);
 
-        if (array_intersect($record[static::RECORD_KEY_CONTEXT][static::RECORD_KEY_CONTEXT_TAGS], $this->tagDisallowList)) {
+        if (array_intersect($context[static::RECORD_KEY_CONTEXT_TAGS], $this->tagDisallowList)) {
             return true;
         }
 
@@ -74,15 +73,13 @@ class TagFilterBufferedStreamHandler extends HandlerWrapper
     }
 
     /**
-     * @param array<mixed> $record
+     * @param array<string, mixed> $context
      *
      * @throws \Spryker\Shared\Log\Exception\InvalidLogRecordTagsTypeException
-     *
-     * @return void
      */
-    protected function assertRecordTagsType(array $record): void
+    protected function assertRecordTagsType(array $context): void
     {
-        if (!is_array($record[static::RECORD_KEY_CONTEXT][static::RECORD_KEY_CONTEXT_TAGS])) {
+        if (!is_array($context[static::RECORD_KEY_CONTEXT_TAGS])) {
             throw new InvalidLogRecordTagsTypeException(
                 sprintf('Invalid log record context: The value of the "%s" key must be an array.', static::RECORD_KEY_CONTEXT_TAGS),
             );

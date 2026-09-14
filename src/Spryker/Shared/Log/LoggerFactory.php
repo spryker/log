@@ -48,7 +48,7 @@ class LoggerFactory
         $channelName = $loggerConfig->getChannelName();
 
         if (!isset(static::$loggers[$channelName])) {
-            $logger = new MonologLogger($channelName, $loggerConfig->getHandlers(), $loggerConfig->getProcessors());
+            $logger = new MonologLogger($channelName, array_values($loggerConfig->getHandlers()), $loggerConfig->getProcessors());
 
             static::$loggers[$channelName] = $logger;
         }

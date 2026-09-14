@@ -31,12 +31,11 @@ abstract class AbstractHandlerPlugin extends AbstractPlugin implements LogHandle
      *
      * @api
      *
-     * @param array $record
-     *
-     * @return bool
+     * @param \Monolog\LogRecord|array $record
      */
-    public function isHandling(array $record): bool
+    public function isHandling($record): bool
     {
+        // @phpstan-ignore argument.type
         return $this->getHandler()->isHandling($record);
     }
 
@@ -45,12 +44,11 @@ abstract class AbstractHandlerPlugin extends AbstractPlugin implements LogHandle
      *
      * @api
      *
-     * @param array $record
-     *
-     * @return bool
+     * @param \Monolog\LogRecord|array $record
      */
-    public function handle(array $record): bool
+    public function handle($record): bool
     {
+        // @phpstan-ignore argument.type
         return $this->getHandler()->handle($record);
     }
 

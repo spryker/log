@@ -8,9 +8,12 @@
 namespace SprykerTest\Glue\Log\Plugin\Handler;
 
 use Codeception\Test\Unit;
+use DateTimeImmutable;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
+use Monolog\Level;
 use Monolog\Logger;
+use Monolog\LogRecord;
 use Spryker\Glue\Log\Plugin\Handler\ExceptionStreamHandlerPlugin;
 
 /**
@@ -50,21 +53,21 @@ class ExceptionStreamHandlerPluginTest extends Unit
 
     public function testIsHandlingReturnsTrueIfLogLevelIsErrored(): void
     {
-        $record = ['level' => Logger::ERROR];
+        $record = $this->createLogRecord(Logger::ERROR);
 
         $this->assertTrue($this->getExceptionStreamHandlerPlugin()->isHandling($record));
     }
 
     public function testIsHandlingReturnsFalseWhenLogLevelNotErrored(): void
     {
-        $record = ['level' => Logger::DEBUG];
+        $record = $this->createLogRecord(Logger::DEBUG);
 
         $this->assertFalse($this->getExceptionStreamHandlerPlugin()->isHandling($record));
     }
 
     public function testHandleWritesMessageToLogFile(): void
     {
-        $record = ['level' => Logger::ERROR, 'extra' => [], 'context' => [], 'message' => 'Test exception logs'];
+        $record = $this->createLogRecord(Logger::ERROR, 'Test exception logs');
         $this->getExceptionStreamHandlerPlugin()->handle($record);
 
         $this->tester->assertLogFileContains(static::FILENAME, 'Test exception logs');
@@ -73,14 +76,31 @@ class ExceptionStreamHandlerPluginTest extends Unit
     public function testHandleBatchWritesMessagesToLogFile(): void
     {
         $records = [
-            ['level' => Logger::ERROR, 'extra' => [], 'context' => [], 'message' => 'Test exception logs'],
-            ['level' => Logger::ERROR, 'extra' => [], 'context' => [], 'message' => 'Test exception logs 2'],
+            $this->createLogRecord(Logger::ERROR, 'Test exception logs'),
+            $this->createLogRecord(Logger::ERROR, 'Test exception logs 2'),
         ];
 
         $this->getExceptionStreamHandlerPlugin()->handleBatch($records);
 
         $this->tester->assertLogFileContains(static::FILENAME, 'Test exception logs');
         $this->tester->assertLogFileContains(static::FILENAME, 'Test exception logs 2');
+    }
+
+    /**
+     * @return \Monolog\LogRecord|array<string, mixed>
+     */
+    protected function createLogRecord(int $level, string $message = '')
+    {
+        if (class_exists(LogRecord::class)) {
+            return new LogRecord(
+                new DateTimeImmutable(),
+                'test',
+                Level::fromValue($level),
+                $message,
+            );
+        }
+
+        return ['level' => $level, 'extra' => [], 'context' => [], 'message' => $message];
     }
 
     public function testPushProcessorReturnsProcessableHandlerInterface(): void

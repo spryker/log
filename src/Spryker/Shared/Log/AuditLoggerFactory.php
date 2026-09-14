@@ -43,7 +43,7 @@ class AuditLoggerFactory
         $channelName = $auditLoggerConfigPlugin->getChannelName();
 
         if (!isset(static::$loggers[$channelName])) {
-            $logger = new MonologLogger($channelName, $auditLoggerConfigPlugin->getHandlers(), $auditLoggerConfigPlugin->getProcessors());
+            $logger = new MonologLogger($channelName, $auditLoggerConfigPlugin->getHandlers(), $auditLoggerConfigPlugin->getProcessors()); // @phpstan-ignore argument.type
 
             static::$loggers[$channelName] = $logger;
         }

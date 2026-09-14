@@ -37,12 +37,20 @@ class GuzzleBodyProcessor implements ProcessorInterface
     }
 
     /**
-     * @param array $record
+     * @param \Monolog\LogRecord|array $record
      *
-     * @return array
+     * @return \Monolog\LogRecord|array
      */
-    public function __invoke(array $record)
+    public function __invoke($record)
     {
+        if (!is_array($record)) {
+            if (isset($record->context[static::EXTRA])) {
+                $record->extra[static::EXTRA] = $this->prepareBody($record->context[static::EXTRA]);
+            }
+
+            return $record;
+        }
+
         if (isset($record[static::RECORD_CONTEXT][static::EXTRA])) {
             $body = $record[static::RECORD_CONTEXT][static::EXTRA];
             $record[static::RECORD_EXTRA][static::EXTRA] = $this->prepareBody($body);

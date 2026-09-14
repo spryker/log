@@ -29,11 +29,9 @@ class QueueHandlerPlugin extends AbstractHandlerPlugin
      *
      * @api
      *
-     * @param array $record
-     *
-     * @return bool
+     * @param \Monolog\LogRecord|array $record
      */
-    public function isHandling(array $record): bool
+    public function isHandling($record): bool
     {
         if (!class_exists(QueueSendMessageTransfer::class)) {
             return false;

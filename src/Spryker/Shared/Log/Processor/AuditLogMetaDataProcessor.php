@@ -25,13 +25,19 @@ class AuditLogMetaDataProcessor implements ProcessorInterface
     protected const TAG_AUDIT_LOG = 'audit_log';
 
     /**
-     * @param array<string, mixed> $data
+     * @param \Monolog\LogRecord|array<string, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return \Monolog\LogRecord|array<string, mixed>
      */
-    public function __invoke(array $data): array
+    public function __invoke($data)
     {
-        $data[static::RECORD_KEY_EXTRA][static::RECORD_KEY_LOG_TYPE] = static::TAG_AUDIT_LOG;
+        if (is_array($data)) {
+            $data[static::RECORD_KEY_EXTRA][static::RECORD_KEY_LOG_TYPE] = static::TAG_AUDIT_LOG;
+
+            return $data;
+        }
+
+        $data->extra[static::RECORD_KEY_LOG_TYPE] = static::TAG_AUDIT_LOG;
 
         return $data;
     }

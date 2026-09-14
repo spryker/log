@@ -10,9 +10,9 @@ namespace Spryker\Shared\Log\Processor;
 interface ProcessorInterface
 {
     /**
-     * @param array<string, mixed> $data
+     * @param \Monolog\LogRecord|array<string, mixed> $data
      *
-     * @return array
+     * @return \Monolog\LogRecord|array
      */
-    public function __invoke(array $data);
+    public function __invoke($data);
 }

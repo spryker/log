@@ -22,17 +22,24 @@ class AbstractQueueHandler extends AbstractProcessingHandler
      */
     protected $queueName;
 
-    protected function write(array $record): void
+    /**
+     * @param \Monolog\LogRecord|array $record
+     */
+    protected function write($record): void
     {
-        $this->send($record['formatted']);
+        $this->send(is_array($record) ? $record['formatted'] : $record->formatted);
     }
 
     public function handleBatch(array $records): void
     {
-        $level = $this->level;
+        // @phpstan-ignore function.impossibleType, function.alreadyNarrowedType
+        $level = is_int($this->level) ? $this->level : $this->level->value;
 
         $records = array_filter($records, function ($record) use ($level) {
-            return ($record['level'] >= $level);
+            // @phpstan-ignore function.impossibleType, function.alreadyNarrowedType
+            $recordLevel = is_array($record) ? $record['level'] : $record->level->value;
+
+            return ($recordLevel >= $level);
         });
 
         if ($records) {

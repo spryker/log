@@ -8,7 +8,10 @@
 namespace SprykerTest\Yves\Log\Plugin\Log;
 
 use Codeception\Test\Unit;
+use DateTimeImmutable;
 use Monolog\Handler\BufferHandler;
+use Monolog\Level;
+use Monolog\LogRecord;
 use Spryker\Shared\Log\Exception\InvalidLogRecordTagsTypeException;
 use Spryker\Shared\Log\Handler\TagFilterBufferedStreamHandler;
 use Spryker\Yves\Log\LogConfig;
@@ -61,7 +64,7 @@ class AuditLogTagFilterBufferedStreamHandlerPluginTest extends Unit
         $auditLogTagFilterBufferedStreamHandlerPlugin = $this->getAuditLogTagFilterBufferedStreamHandlerPlugin();
 
         // Act
-        $auditLogTagFilterBufferedStreamHandlerPlugin->handle(['context' => []]);
+        $auditLogTagFilterBufferedStreamHandlerPlugin->handle($this->createLogRecord([]));
     }
 
     public function testHandleWritesMessageToLogFileWhenContextTagIsSet(): void
@@ -70,7 +73,27 @@ class AuditLogTagFilterBufferedStreamHandlerPluginTest extends Unit
         $auditLogTagFilterBufferedStreamHandlerPlugin = $this->getAuditLogTagFilterBufferedStreamHandlerPlugin();
 
         // Act
-        $auditLogTagFilterBufferedStreamHandlerPlugin->handle(['context' => ['tags' => ['test_tag']]]);
+        $auditLogTagFilterBufferedStreamHandlerPlugin->handle($this->createLogRecord(['tags' => ['test_tag']]));
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     *
+     * @return \Monolog\LogRecord|array<string, mixed>
+     */
+    protected function createLogRecord(array $context)
+    {
+        if (class_exists(LogRecord::class)) {
+            return new LogRecord(
+                new DateTimeImmutable(),
+                'test',
+                Level::Info,
+                'test message',
+                $context,
+            );
+        }
+
+        return ['context' => $context];
     }
 
     protected function getAuditLogTagFilterBufferedStreamHandlerPlugin(): AuditLogTagFilterBufferedStreamHandlerPlugin

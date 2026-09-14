@@ -16,11 +16,11 @@ use Spryker\Shared\Log\Dependency\Plugin\LogProcessorPluginInterface;
 class GuzzleBodyProcessorPlugin extends AbstractPlugin implements LogProcessorPluginInterface
 {
     /**
-     * @param array<string, mixed> $data
+     * @param \Monolog\LogRecord|array<string, mixed> $data
      *
-     * @return array
+     * @return \Monolog\LogRecord|array
      */
-    public function __invoke(array $data): array
+    public function __invoke($data)
     {
         return $this->getFactory()->createGuzzleBodyProcessor()->__invoke($data);
     }

@@ -16,12 +16,13 @@ use Spryker\Yves\Kernel\AbstractPlugin;
 class PsrLogMessageProcessorPlugin extends AbstractPlugin implements LogProcessorPluginInterface
 {
     /**
-     * @param array<mixed> $data
+     * @param \Monolog\LogRecord|array<mixed> $data
      *
-     * @return array
+     * @return \Monolog\LogRecord|array
      */
-    public function __invoke(array $data)
+    public function __invoke($data)
     {
+        // @phpstan-ignore argument.type
         return $this->getFactory()->createPsrMessageProcessor()->__invoke($data);
     }
 }

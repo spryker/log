@@ -22,11 +22,11 @@ class ServerProcessorPlugin extends AbstractPlugin implements LogProcessorPlugin
      *
      * @api
      *
-     * @param array<string, mixed> $data
+     * @param \Monolog\LogRecord|array<string, mixed> $data
      *
-     * @return array
+     * @return \Monolog\LogRecord|array
      */
-    public function __invoke(array $data)
+    public function __invoke($data)
     {
         return $this->getFactory()->createServerProcessorPublic()->__invoke($data);
     }

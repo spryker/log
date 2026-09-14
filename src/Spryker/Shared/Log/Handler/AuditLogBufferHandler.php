@@ -13,7 +13,7 @@ use Monolog\Logger;
 class AuditLogBufferHandler extends AbstractHandler
 {
     /**
-     * @var array<int, array<string, mixed>>
+     * @var array<int, array<string, mixed>|\Monolog\LogRecord>
      */
     protected array $records = [];
 
@@ -28,9 +28,9 @@ class AuditLogBufferHandler extends AbstractHandler
     /**
      * {@inheritDoc}
      *
-     * @param array<string, mixed> $record
+     * @param \Monolog\LogRecord|array $record
      */
-    public function handle(array $record): bool
+    public function handle($record): bool
     {
         $this->records[] = $record;
 
@@ -39,7 +39,7 @@ class AuditLogBufferHandler extends AbstractHandler
     }
 
     /**
-     * @return array<int, array<string, mixed>>
+     * @return array<int, array<string, mixed>|\Monolog\LogRecord>
      */
     public function getRecords(): array
     {

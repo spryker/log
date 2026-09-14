@@ -11,9 +11,6 @@ use Monolog\Logger;
 use Spryker\Shared\Log\LogConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
-/**
- * @phpstan-import-type Level from \Monolog\Logger
- */
 class LogConfig extends AbstractBundleConfig
 {
     /**
@@ -41,8 +38,6 @@ class LogConfig extends AbstractBundleConfig
      * Records at or above this level flush the buffer immediately instead of waiting for shutdown, so a
      * process that never reaches shutdown does not take them with it. Set to `null` to disable the early
      * flush and keep the stock buffered behaviour.
-     *
-     * @phpstan-var Level|null
      */
     protected const ?int FLUSH_LEVEL = Logger::CRITICAL;
 
@@ -261,8 +256,6 @@ class LogConfig extends AbstractBundleConfig
      * - Returns `null` to disable the early flush and keep the stock buffered behaviour.
      *
      * @api
-     *
-     * @phpstan-return Level|null
      *
      * @return int|null
      */

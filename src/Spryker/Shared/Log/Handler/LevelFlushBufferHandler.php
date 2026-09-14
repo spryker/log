@@ -9,6 +9,7 @@ namespace Spryker\Shared\Log\Handler;
 
 use Monolog\Handler\BufferHandler;
 use Monolog\Handler\HandlerInterface;
+use Monolog\Level;
 use Monolog\Logger;
 
 /**
@@ -25,22 +26,12 @@ use Monolog\Logger;
  *
  * Passing `null` as `$flushLevel` disables the early flush entirely, leaving the stock `BufferHandler`
  * behaviour of writing only on shutdown.
- *
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
- * @phpstan-import-type Record from \Monolog\Logger
  */
 class LevelFlushBufferHandler extends BufferHandler
 {
-    /**
-     * @phpstan-var Level|null
-     */
     protected ?int $flushLevel;
 
     /**
-     * @phpstan-param Level|LevelName|\Psr\Log\LogLevel::* $level
-     * @phpstan-param Level|LevelName|\Psr\Log\LogLevel::*|null $flushLevel
-     *
      * @param \Monolog\Handler\HandlerInterface $handler
      * @param int $bufferLimit
      * @param string|int $level
@@ -59,19 +50,24 @@ class LevelFlushBufferHandler extends BufferHandler
     ) {
         parent::__construct($handler, $bufferLimit, $level, $bubble, $flushOnOverflow);
 
-        $this->flushLevel = $flushLevel === null ? null : Logger::toMonologLevel($flushLevel);
+        if ($flushLevel === null) {
+            $this->flushLevel = null;
+
+            return;
+        }
+
+        $resolvedFlushLevel = Logger::toMonologLevel($flushLevel);
+        $this->flushLevel = $resolvedFlushLevel instanceof Level ? $resolvedFlushLevel->value : $resolvedFlushLevel;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @phpstan-param Record $record
-     *
-     * @param array<string, mixed> $record
+     * @param \Monolog\LogRecord|array<string, mixed> $record
      *
      * @return bool
      */
-    public function handle(array $record): bool
+    public function handle($record): bool
     {
         $result = parent::handle($record);
 

@@ -23,11 +23,11 @@ class EnvironmentProcessorPlugin extends AbstractPlugin implements LogProcessorP
      *
      * @api
      *
-     * @param array<string, mixed> $data
+     * @param \Monolog\LogRecord|array<string, mixed> $data
      *
-     * @return array
+     * @return \Monolog\LogRecord|array
      */
-    public function __invoke(array $data)
+    public function __invoke($data)
     {
         try {
             return $this->getFactory()->createEnvironmentProcessorPublic()->__invoke($data);

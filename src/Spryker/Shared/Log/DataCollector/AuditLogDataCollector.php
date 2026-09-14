@@ -75,21 +75,33 @@ class AuditLogDataCollector extends DataCollector implements LateDataCollectorIn
         $errorCount = 0;
 
         foreach ($this->handler->getRecords() as $record) {
-            $channel = $record[static::KEY_CHANNEL];
-            $levelName = $record[static::KEY_LEVEL_NAME];
-            $levelValue = $record[static::KEY_LEVEL];
+            if (is_array($record)) {
+                $channel = $record[static::KEY_CHANNEL];
+                $levelName = $record[static::KEY_LEVEL_NAME];
+                $levelValue = $record[static::KEY_LEVEL];
+                $datetime = $record[static::KEY_DATETIME];
+                $message = $record[static::KEY_MESSAGE];
+                $context = $record[static::KEY_CONTEXT];
+            } else {
+                $channel = $record->channel;
+                $levelName = $record->level->getName();
+                $levelValue = $record->level->value;
+                $datetime = $record->datetime;
+                $message = $record->message;
+                $context = $record->context;
+            }
 
             if ($levelValue >= Logger::ERROR) {
                 $errorCount++;
             }
 
             $logsByChannel[$channel][] = [
-                static::KEY_TIME => $record[static::KEY_DATETIME]->format(static::TIME_FORMAT),
+                static::KEY_TIME => $datetime->format(static::TIME_FORMAT),
                 static::KEY_CHANNEL => $channel,
                 static::KEY_LEVEL => $levelName,
                 static::KEY_LEVEL_VALUE => $levelValue,
-                static::KEY_MESSAGE => $record[static::KEY_MESSAGE],
-                static::KEY_CONTEXT => $this->cloneVar($record[static::KEY_CONTEXT]),
+                static::KEY_MESSAGE => $message,
+                static::KEY_CONTEXT => $this->cloneVar($context),
             ];
         }
 
