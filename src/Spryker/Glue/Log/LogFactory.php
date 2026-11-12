@@ -49,11 +49,17 @@ class LogFactory extends AbstractFactory
      */
     protected const string APPLICATION_GLUE_BACKEND = 'GLUE_BACKEND';
 
+    /**
+     * @see \public/GlueStorefront/index.php
+     */
+    protected const string APPLICATION_GLUE_STOREFRONT = 'GLUE_STOREFRONT';
+
     public function createAuditLogDataCollectorCreator(): AuditLogDataCollectorCreatorInterface
     {
         return new AuditLogDataCollectorCreator([
             static::APPLICATION_GLUE => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_GLUE,
             static::APPLICATION_GLUE_BACKEND => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_GLUE_BACKEND,
+            static::APPLICATION_GLUE_STOREFRONT => LogConstants::AUDIT_LOGGER_CONFIG_PLUGINS_GLUE_STOREFRONT,
         ]);
     }
 

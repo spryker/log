@@ -14,6 +14,7 @@ use Spryker\Shared\Log\PluginProvider\AuditLoggerConfigPluginProviderInterface;
 use Spryker\Shared\Log\Strategy\AuditLoggerConfigPluginProviderStrategyInterface;
 use Spryker\Shared\Log\Strategy\GlueAuditLoggerConfigPluginProviderStrategy;
 use Spryker\Shared\Log\Strategy\GlueBackendAuditLoggerConfigPluginProviderStrategy;
+use Spryker\Shared\Log\Strategy\GlueStorefrontAuditLoggerConfigPluginProviderStrategy;
 use Spryker\Shared\Log\Strategy\MerchantPortalAuditLoggerConfigPluginProviderStrategy;
 use Spryker\Shared\Log\Strategy\YvesAuditLoggerConfigPluginProviderStrategy;
 use Spryker\Shared\Log\Strategy\ZedAuditLoggerConfigPluginProviderStrategy;
@@ -46,6 +47,7 @@ class AuditLoggerConfigPluginProviderFactory
             static::createZedAuditLoggerConfigPluginProviderStrategy(),
             static::createGlueAuditLoggerConfigPluginProviderStrategy(),
             static::createGlueBackendAuditLoggerConfigPluginProviderStrategy(),
+            static::createGlueStorefrontAuditLoggerConfigPluginProviderStrategy(),
             static::createMerchantPortalAuditLoggerConfigPluginProviderStrategy(),
         ];
     }
@@ -68,6 +70,11 @@ class AuditLoggerConfigPluginProviderFactory
     protected static function createGlueBackendAuditLoggerConfigPluginProviderStrategy(): AuditLoggerConfigPluginProviderStrategyInterface
     {
         return new GlueBackendAuditLoggerConfigPluginProviderStrategy();
+    }
+
+    protected static function createGlueStorefrontAuditLoggerConfigPluginProviderStrategy(): AuditLoggerConfigPluginProviderStrategyInterface
+    {
+        return new GlueStorefrontAuditLoggerConfigPluginProviderStrategy();
     }
 
     protected static function createMerchantPortalAuditLoggerConfigPluginProviderStrategy(): AuditLoggerConfigPluginProviderStrategyInterface

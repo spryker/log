@@ -341,6 +341,17 @@ interface LogConstants
     /**
      * Specification:
      * - Provides class names of the plugins implementing {@link \Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterface}
+     * which are used to provide configuration for audit logging for Glue Storefront application.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const AUDIT_LOGGER_CONFIG_PLUGINS_GLUE_STOREFRONT = 'LOG:AUDIT_LOGGER_CONFIG_PLUGINS_GLUE_STOREFRONT';
+
+    /**
+     * Specification:
+     * - Provides class names of the plugins implementing {@link \Spryker\Shared\LogExtension\Dependency\Plugin\AuditLoggerConfigPluginInterface}
      * which are used to provide configuration for audit logging for Merchant Portal application.
      *
      * @api
