@@ -241,6 +241,15 @@
             border: 1px dashed #ddd;
             border-radius: 6px;
         }
+        .audit-log-actions {
+            margin: 0 0 10px 0;
+        }
+        .audit-log-copy-json {
+            margin-left: 8px;
+        }
+        .audit-log-json-source {
+            display: none;
+        }
     </style>
 
     <h2>Audit Logs</h2>
@@ -249,6 +258,9 @@
     {% set channels = collector.channels %}
     {% set errorCount = collector.errorCount %}
 
+    <div class="audit-log-actions">
+        <button type="button" class="btn btn-sm" data-profiler-toggle-all=".audit-log-table">Expand all</button>
+    </div>
     <div class="audit-log-tabs" role="tablist">
         <button type="button" role="tab" aria-selected="true" aria-controls="audit-tab-all" class="audit-log-tab active" onclick="showAuditTab('all', this)">
             All
@@ -288,6 +300,115 @@
             el.setAttribute('aria-selected', 'true');
         }
     </script>
+
+    <script>
+        (function () {
+            var copyText = function (text) {
+                if (navigator.clipboard && window.isSecureContext) {
+                    return navigator.clipboard.writeText(text);
+                }
+
+                return new Promise(function (resolve, reject) {
+                    var textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    textarea.setAttribute('readonly', '');
+                    textarea.style.position = 'fixed';
+                    textarea.style.top = '-1000px';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+
+                    try {
+                        document.execCommand('copy') ? resolve() : reject(new Error('Copy command was rejected.'));
+                    } finally {
+                        document.body.removeChild(textarea);
+                    }
+                });
+            };
+
+            var showCopyResult = function (button, label) {
+                var originalLabel = button.getAttribute('data-original-label') || button.textContent;
+                button.setAttribute('data-original-label', originalLabel);
+                button.textContent = label;
+                window.setTimeout(function () {
+                    button.textContent = originalLabel;
+                }, 2000);
+            };
+
+            document.querySelectorAll('[data-profiler-copy-json]').forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    var source = button.closest('details').querySelector('[data-profiler-json-source]');
+
+                    copyText(source.value).then(function () {
+                        showCopyResult(button, 'Copied!');
+                    }, function () {
+                        showCopyResult(button, 'Copy failed');
+                    });
+                });
+            });
+
+            var setDumpNodesState = function (nodes, fromClass, toClass, arrow) {
+                nodes.forEach(function (node) {
+                    node.className = node.className.replace(new RegExp('\\b' + fromClass + '\\b'), toClass);
+
+                    if (node.previousSibling && node.previousSibling.lastChild) {
+                        node.previousSibling.lastChild.innerHTML = arrow;
+                    }
+                });
+            };
+
+            var expandNestedDumps = function (container) {
+                setDumpNodesState(container.querySelectorAll('.sf-dump-compact'), 'sf-dump-compact', 'sf-dump-expanded', '\u25BC');
+            };
+
+            var collapseNestedDumps = function (container) {
+                setDumpNodesState(container.querySelectorAll('.sf-dump-expanded .sf-dump-expanded'), 'sf-dump-expanded', 'sf-dump-compact', '\u25B6');
+            };
+
+            var initDetailsToggle = function (button, getDetails, expandLabel, collapseLabel) {
+                var hasClosedDetails = function () {
+                    return Array.prototype.some.call(getDetails(), function (details) {
+                        return !details.open;
+                    });
+                };
+                var refreshLabel = function () {
+                    button.textContent = hasClosedDetails() ? expandLabel : collapseLabel;
+                };
+
+                button.addEventListener('click', function () {
+                    var isOpen = hasClosedDetails();
+
+                    getDetails().forEach(function (details) {
+                        details.open = isOpen;
+
+                        if (isOpen) {
+                            expandNestedDumps(details);
+
+                            return;
+                        }
+
+                        collapseNestedDumps(details);
+                    });
+                    refreshLabel();
+                });
+                document.addEventListener('toggle', refreshLabel, true);
+            };
+
+            document.querySelectorAll('[data-profiler-toggle-all]').forEach(function (button) {
+                initDetailsToggle(button, function () {
+                    return document.querySelectorAll(button.getAttribute('data-profiler-toggle-all') + ' details');
+                }, 'Expand all', 'Collapse all');
+            });
+
+            document.querySelectorAll('[data-profiler-toggle-row]').forEach(function (button) {
+                initDetailsToggle(button, function () {
+                    return button.closest('td').querySelectorAll('details');
+                }, 'Expand', 'Collapse');
+            });
+        })();
+    </script>
 {% endblock %}
 
 {% macro renderLogsTable(logs) %}
@@ -321,7 +442,8 @@
                         <tr class="audit-log-context-row {% if i is even %}audit-log-row-even{% endif %}">
                             <td colspan="5" class="audit-log-context-cell">
                                 <details>
-                                    <summary>Show context</summary>
+                                    <summary>Show context <button type="button" class="btn btn-sm audit-log-copy-json" data-profiler-copy-json>Copy JSON</button></summary>
+                                    <textarea class="audit-log-json-source" data-profiler-json-source readonly>{{ _self.renderJson(log.context) }}</textarea>
                                     <div class="audit-log-context-content">
                                         {{ profiler_dump(log.context) }}
                                     </div>
@@ -333,4 +455,13 @@
             </tbody>
         </table>
     {% endif %}
+{% endmacro %}
+
+{% macro renderJson(value) %}
+    {%- set rawValue = value.getValue is defined ? value.getValue(true) : value -%}
+    {%- if rawValue is iterable -%}
+        {{ rawValue|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_INVALID_UTF8_SUBSTITUTE')) }}
+    {%- else -%}
+        {{ rawValue }}
+    {%- endif -%}
 {% endmacro %}
